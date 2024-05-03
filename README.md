@@ -1,8 +1,14 @@
 # Attendance Management System with Face Recognition
-Group Project
+
+https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/a6f8e0fe-d59b-4b98-9642-fcf4f3f3800e
+> [!NOTE]
+> **The intro video is AI generated.**
 
 ## Overview
 This project implements an automated attendance management system using facial recognition technology. It aims to streamline attendance tracking processes in academic or small-scale organizational settings.
+
+> [!IMPORTANT]
+> This is a Equal Effort Project with help of [Priya Maurya](https://github.com/mauryapriya050)
 
 
 ## Key Features
@@ -21,36 +27,45 @@ For detailed documentation, refer to the provided documentation file.
 
 
 ## Video of working of the project
-https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/c07ef73b-b8d5-4303-88cd-6101addc8cb1
+https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/500f5433-fc70-4976-967a-c8f5d6793391
 
 
 ## Screenshots
 - Login Page
-![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/c29526c6-6501-4414-afa8-2a6e37acd41c)
+![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/e595a48e-5385-4cc3-a8fa-9164e6353623)
+
 
 - Admin Page
-![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/c50b7a80-644c-467c-9e30-0aebdcd7f4ff)
+![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/070ba8e9-8cd4-4d2d-add0-02039ee3fa18)
+
 
 - Adding Staff
-![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/2488c336-2ee0-4801-9e42-56c93696f5c8)
+![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/d603a3b2-b3ae-4601-ad1c-38420ab63c2e)
+
 
 - Staff Page
-![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/78c18344-eb9f-40cf-bf24-13a2ac01a8dc)
+![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/ab6c2cbc-0b3b-46bd-a526-6f349a1b321c)
+
 
 - View Attendance (Staff)
-![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/51fe0a5a-ed98-4c64-9955-c8234707fe7d)
+![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/2dbdfb70-a970-45d8-a1b0-f50329cace5d)
+
 
 - Add Attendance (Staff)
-![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/be0eed48-5e72-456f-9111-39ad33a581df)
+![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/ab124ff2-2e55-4cf0-9667-01263488e797)
+
 
 - User Page
-![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/237ff20c-1b28-4ce2-a3ea-54dd7b5d0397)
+![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/706e80b7-65a3-4044-9b88-64646e67ec24)
+
 
 - View Attendance (User)
-![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/54827146-6997-4559-83ae-025b80217b85)
+![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/c04608cc-53bb-47fb-a388-d8f5791e0965)
+
 
 - Face Recognition Page
-![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/dd3797d5-ec67-4422-ad1c-1996dd0cdba9)
+![image](https://github.com/kunalgiri19/AMS-final-year-project/assets/107206391/e68de093-6d46-4dd0-84bb-68ca2973c1f7)
+
 
 
 ## License
