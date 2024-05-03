@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Page</title>
+
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/staff.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body style="background-color: rgb(216, 213, 213);">
+  <!-- <img src="static\images\admin.jpg" class="bg"> -->
+  <div class="header">
+    <div class="logo">
+      <img src="/static/images/logo.png" style="height: 35px;">
+    </div>
+    <div class="cont">
+      <div class="user-dropdown">
+        <div class="user-info" onclick="toggleDropdown(event)">
+          <img src="static\images\profile.png" class="proimg">
+          <p style="color: aliceblue; margin-right: 5px;">Staff</p>
+          <i class='bx bx-chevron-down' style="color: aliceblue;"></i>
+        </div>
+        <div class="dropdown-content" id="dropdownContent">
+          <form action="/logout" method="post">
+            <button class="logoutbtn">
+              <div class="sign">
+                <svg viewBox="0 0 512 512">
+                  <path
+                    d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+                  </path>
+                </svg>
+              </div>
+              <div class="text">Logout</div>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <ul>
+      <li>
+        <i class="bx bx-menu" id="menubtn"></i>
+      </li>
+      <li>
+        <a onclick="showContent('dashboard')">
+          <i class='bx bxs-dashboard'></i>
+          <div class="nav-item">Dashboard</div>
+        </a>
+      </li>
+      <li>
+        <a onclick="showContent('viewattendance')">
+          <i class='bx bxs-bar-chart-alt-2'></i>
+          <div class="nav-item">View Attendance</div>
+        </a>
+      </li>
+      <li>
+        <a onclick="showContent('addattendance')">
+          <i class='bx bxs-plus-circle'></i>
+          <div class="nav-item">Add Attendance</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <div class="container" id="dashboard">
+      <h1>Dashboard</h1>
+      <div class="button-container">
+        <h2 style="padding-top: 2%;padding-left:3%">Users</h2>
+        <div class="btnadd">
+          <button type="button" class="slidetoggle" id="button">
+            <span class="button__text">Add User</span>
+            <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24"
+                stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24"
+                fill="none" class="svg">
+                <line y2="19" y1="5" x2="12" x1="12"></line>
+                <line y2="12" y1="12" x2="19" x1="5"></line>
+              </svg></span>
+          </button>
+        </div>
+      </div>
+      <div class="board">
+        <table width="100%" style="padding: 1%;">
+          <thead>
+            <tr style="font-weight: bold;">
+              <th style="text-align: left;">Name</th>
+              <th style="text-align: left;">Birthdate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in user_data %}
+            <tr>
+              <td>{{ user.name }}
+                <p>{{ user.email }}</p>
+              </td>
+              <td>{{ user.birthdate }}</td>
+              <td class="delete">
+                <form action="/delete_user" method="POST">
+                  <input type="hidden" name="user_id" value="{{ user._id }}">
+                  <input type="hidden" name="user_uid" value="{{ user.uid }}">
+                  <button class="bin-button" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 39 7" class="bin-top">
+                      <line stroke-width="4" stroke="white" y2="5" x2="39" y1="5"></line>
+                      <line stroke-width="3" stroke="white" y2="1.5" x2="26.0357" y1="1.5" x1="12"></line>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 33 39" class="bin-bottom">
+                      <mask fill="white" id="path-1-inside-1_8_19">
+                        <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path>
+                      </mask>
+                      <path mask="url(#path-1-inside-1_8_19)" fill="white"
+                        d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z">
+                      </path>
+                      <path stroke-width="4" stroke="white" d="M12 6L12 29"></path>
+                      <path stroke-width="4" stroke="white" d="M21 6V29"></path>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 89 80" class="garbage">
+                      <path fill="white"
+                        d="M20.5 10.5L37.5 15.5L42.5 11.5L51.5 12.5L68.75 0L72 11.5L79.5 12.5H88.5L87 22L68.75 31.5L75.5066 25L86 26L87 35.5L77.5 48L70.5 49.5L80 50L77.5 71.5L63.5 58.5L53.5 68.5L65.5 70.5L45.5 73L35.5 79.5L28 67L16 63L12 51.5L0 48L16 25L22.5 17L20.5 10.5Z">
+                      </path>
+                    </svg>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="content" id="content" style="display: none;">
+        <section class="section_form">
+          <form class="feed-form" id="addStaffForm" method="POST" action="/staff" enctype="multipart/form-data">
+            <div class="grid-container">
+              <!-- First Row -->
+              <div class="grid-item">
+                <div class="form-group">
+                  <label for="name">Name:</label>
+                  <input class="input" name="name" required="" placeholder="Name" type="text">
+                </div>
+              </div>
+              <div class="grid-item">
+                <div class="form-group">
+                  <label for="email">Email:</label>
+                  <input class="input" name="email" required="" placeholder="Email" type="email">
+                </div>
+              </div>
+              <div class="grid-item">
+                <div class="form-group">
+                  <label for="bithdate">Birthdate:</label>
+                  <input class="input" name="birthdate" required="" placeholder="YYYY-MM-DD" type="text">
+                </div>
+              </div>
+              <!-- Second Row -->
+              <div class="grid-item">
+                <div class="form-group">
+                  <label for="username">Username:</label>
+                  <input class="input" name="username" id="username" placeholder="Username" type="text">
+                </div>
+              </div>
+              <div class="grid-item">
+                <div class="form-group">
+                  <label for="password">Password:</label>
+                  <input class="input" name="password" placeholder="Password" type="text">
+                </div>
+              </div>
+              <div class="grid-item">
+                <div class="form-group">
+                  <label for="uid">Uid:</label>
+                  <input class="input" name="uid" required="" placeholder="Uid" type="text">
+                </div>
+              </div>
+              <div></div>
+              <div></div>
+
+              <button class="addbtn" type="submit">
+                <p class="submit">submit</p>
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+      <br>
+      <div class="announce">
+        <label for="message_text">Add Announcement:</label>
+        <form id="notificationForm" action="/staff" method="post">
+          <textarea id="notification" name="notification" rows="4" cols="50" style="width: 300px;"></textarea><br>
+          <button class="submitBtn" type="submit">
+            Send Notification
+            <svg fill="white" viewBox="0 0 448 512" height="1em" class="arrow">
+              <path
+                d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z">
+              </path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="container" id="viewattendance" style="display: none;">
+      <h1>View Attendance</h1>
+      <div class="board">
+        <div style="display: flex;"> 
+        <h3 style="color: aliceblue; margin: 10px;"><div style="width: auto;">
+          <label for="filterStatus">Filter by Status:</label>
+          <select id="filterStatus" onchange="filterAttendance()">
+            <option value="all">All</option>
+            <option value="present">Present</option>
+            <option value="absent">Absent</option>
+          </select>
+        </div></h3>
+        <h3 style="color: aliceblue; margin: 10px;"><div style="width: auto;">
+          <label for="filterName">Filter by Name:</label>
+          <select id="filterName" onchange="filterAttendance()">
+            <option value="all">All</option>
+            {% for name in unique_names %}
+            <option value="{{ name }}">{{ name }}</option>
+            {% endfor %}
+          </select>
+        </div></h3>
+        <h3 style="color: aliceblue; margin: 10px;"><div style="width: auto;">
+          <label for="filterDate">Filter by Date:</label>
+          <select id="filterDate" onchange="filterAttendance()">
+            <option value="all">All</option>
+            {% for date in unique_dates %}
+            <option value="{{ date }}">{{ date }}</option>
+            {% endfor %}
+          </select>
+        </div></h3>
+      </div>
+
+        <table width="100%" style="padding: 1%;">
+          <thead>
+            <tr style="font-weight: bold;">
+              <th style="text-align: left;">Name</th>
+              <th style="text-align: left;">Date</th>
+              <th style="text-align: left;">Time</th>
+              <th style="text-align: left;">Status</th>
+            </tr>
+          </thead>
+          <tbody id="attendance-table-body">
+            {% for record in attendance_data %}
+            <tr class="attendance-row">
+              <td>{{ record.name }}</td>
+              <td>{{ record.date }}</td>
+              <td>{{ record.time }}</td>
+              <td>{{ record.status }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+
+
+    <div class="container" id="addattendance" style="display: none;">
+      <h1>Add attendance</h1>
+      <div class="toggle">
+        <h3>Access Switch</h3>
+        <label class="switch">
+          <input type="checkbox" id="faceRecognitionSwitch">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="board">
+        <table width="100%" style="padding: 1%;">
+          <thead>
+            <tr style="font-weight: bold;">
+              <th style="text-align: left;">Name</th>
+              <th style="text-align: left;">Date</th>
+              <th style="text-align: left;">Status</th>
+            </tr>
+          </thead>
+          <tbody id="attendance-table-body">
+            {% for record in attendance_data %}
+            <tr class="attendance-row">
+              <td>{{ record.name }}</td>
+              <td>{{ record.date }}</td>
+              <td>{{ record.status }}</td>
+              <td>
+                <form method="POST" action="/update_attendance">
+                  <input type="hidden" name="record_name" value="{{ record.name }}">
+                  <input type="hidden" name="record_date" value="{{ record.date }}">
+
+                  <div class="toggler">
+                    <input id="attendance-toggle-{{ record.name }}-{{ record.date }}" name="attendance-toggle"
+                      type="checkbox" class="attendance-toggle" data-toggle="toggle" data-on="Present" data-off="Absent"
+                      data-onstyle="success" data-offstyle="danger" {% if record.status=='Present' %}checked{% endif %}
+                      onchange="this.form.submit()" style="display: none;">
+                    <label for="attendance-toggle-{{ record.name }}-{{ record.date }}">
+                      <svg class="toggler-on" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 130.2 130.2">
+                        <polyline class="path check" points="100.2,40.2 51.5,88.8 29.8,67.5"></polyline>
+                      </svg>
+                      <svg class="toggler-off" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 130.2 130.2">
+                        <line class="path line" x1="34.4" y1="34.4" x2="95.8" y2="95.8"></line>
+                        <line class="path line" x1="95.8" y1="34.4" x2="34.4" y2="95.8"></line>
+                      </svg>
+                    </label>
+                  </div>
+                </form>
+
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static',filename='js/staff.js') }}"></script>
+</body>
+
+</html>

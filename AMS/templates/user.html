@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users Page</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/user.css') }}">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</head>
+
+<body onload="initClock()" style="background-color: rgb(216, 213, 213);">
+  <!-- <img src="static\images\admin.jpg" class="bg"> -->
+  <div class="header">
+    <div class="logo">
+      <img src="static\images\logo.png" style="height: 35px;">
+    </div>
+    <div class="cont">
+      <button class="noti-button" id="svg-button">
+        <svg class="noti-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="none" d="M0 0h24v24H0z"></path>
+          <path fill="currentColor"
+            d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7zm-2 0v-7a6 6 0 1 0-12 0v7h12zm-9 4h6v2H9v-2z"></path>
+        </svg>
+        <div class="messages">
+          <ul style=" list-style:none;">
+            {% for notification in notifications %}
+            <li><b>{{ notification.message }}</b></li>
+            <hr>
+            {% endfor %}
+          </ul>
+        </div>
+      </button>
+      <div class="user-dropdown">
+        <div class="user-info" onclick="toggleDropdown(event)">
+          {% if profile_image_path %}
+          <img src="{{ profile_image_path }}" class="proimg">
+          {% else %}
+          <img src="{{ url_for('static', filename='images/profile.png') }}" class="proimg">
+          {% endif %}
+          <p style="color: aliceblue; margin-right: 5px;">{{user_name}}</p>
+          <i class='bx bx-chevron-down' style="color: aliceblue;"></i>
+        </div>
+        <div class="dropdown-content" id="dropdownContent">
+          <form action="/logout" method="post">
+            <button class="Btn">
+              <div class="sign">
+                <svg viewBox="0 0 512 512">
+                  <path
+                    d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+                  </path>
+                </svg>
+              </div>
+              <div class="text">Logout</div>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <ul>
+      <li>
+        <i class="bx bx-menu" id="btn"></i>
+      </li>
+      <li>
+        <a onclick="showContent('dashboard')">
+          <i class='bx bxs-dashboard'></i>
+          <div class="nav-item">Dashboard</div>
+        </a>
+      </li>
+      <li>
+        <a onclick="showContent('viewattendance')">
+          <i class='bx bxs-bar-chart-alt-2'></i>
+          <div class="nav-item">View Attendance</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <div class="container" id="dashboard">
+      <div style="margin-bottom: 20px;">
+        <div class="success">
+          <div class="success__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none">
+              <path fill-rule="evenodd" fill="#393a37"
+                d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div class="success__title">{{ welcome_message }}</div>
+          <div class="success__close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20">
+              <path fill="#393a37"
+                d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z">
+              </path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+
+
+      <section style="position: relative;">
+        <div class="card">
+          <div class="card-counting">
+            <img src="static\images\present.png" class="fg">
+            <div class="counting present-count" data-target="365">
+              {{ present_count }}
+            </div>
+            <span> Present </span>
+          </div>
+          <div class="card-counting1">
+            <img src="static\images\absent.png" class="fg" style="width: 50px;">
+            <div class="counting absent-count" data-target="365">
+              {{ absent_count }}
+            </div>
+            <span> Absent </span>
+          </div>
+        </div>
+
+        <div class="time">
+          <div id="clockdate">
+            <div class="clockdate-wrapper">
+              <div id="clock"></div>
+              <div id="date"></div>
+            </div>
+          </div>
+          <div id="calendar">
+            <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+          </div>
+        </div>
+      </section>
+
+
+      <div class="card2">
+        <div class="event">
+          <h2>Holidays</h2>
+          <div class="table-container">
+            <table class="holiday">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Event</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              <tbody>
+                <tr>
+                  <td>May 1, 2024</td>
+                  <td>Labor Day</td>
+                  <td>Observance</td>
+                </tr>
+                <tr>
+                  <td>May 7, 2024</td>
+                  <td>Ramadan Begins</td>
+                  <td>Observance</td>
+                </tr>
+                <tr>
+                  <td>May 13, 2024</td>
+                  <td>Buddha Purnima/Vesak</td>
+                  <td>Observance</td>
+                </tr>
+                <tr>
+                  <td>May 23, 2024</td>
+                  <td>Eid ul Fitr</td>
+                  <td>Observance</td>
+                </tr>
+                <tr>
+                  <td>June 1, 2024</td>
+                  <td>Global Day of Parents</td>
+                  <td>Observance</td>
+                </tr>
+                <tr>
+                  <td>June 5, 2024</td>
+                  <td>World Environment Day</td>
+                  <td>Observance</td>
+                </tr>
+                <tr>
+                  <td>June 16, 2024</td>
+                  <td>Father's Day</td>
+                  <td>Observance</td>
+                </tr>
+                <tr>
+                  <td>June 21, 2024</td>
+                  <td>June Solstice</td>
+                  <td>Season</td>
+                </tr>
+                <tr>
+                  <td>June 29, 2024</td>
+                  <td>Eid al-Adha</td>
+                  <td>Observance</td>
+                </tr>
+              </tbody>
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card4">
+        <h2>{{user_name}} Overall Attendance</h2>
+        <div class="bar-graph bar-graph-vertical bar-graph-two">
+          <div class="bar-one bar-container">
+            <div class="bar" data-percentage="0%"></div>
+            <span class="year">Jan</span>
+          </div>
+          <div class="bar-two bar-container">
+            <div class="bar" data-percentage="0%"></div>
+            <span class="year">Feb</span>
+          </div>
+          <div class="bar-three bar-container">
+            <div class="bar" data-percentage="40%"></div>
+            <span class="year">March</span>
+          </div>
+          <div class="bar-four bar-container">
+            <div class="bar" data-percentage="16%"></div>
+            <span class="year">April</span>
+          </div>
+          <div class="bar-five bar-container">
+            <div class="bar" data-percentage="100%" style="font-size: small;"></div>
+            <span class="year">May</span>
+          </div>
+          <div class="bar-six bar-container">
+            <div class="bar" data-percentage="0%"></div>
+            <span class="year">June</span>
+          </div>
+          <div class="bar-six bar-container">
+            <div class="bar" data-percentage="0%"></div>
+            <span class="year">July</span>
+          </div>
+          <div class="bar-six bar-container">
+            <div class="bar" data-percentage="0%"></div>
+            <span class="year">Aug</span>
+          </div>
+          <div class="bar-six bar-container">
+            <div class="bar" data-percentage="0%"></div>
+            <span class="year">Sept</span>
+          </div>
+          <div class="bar-six bar-container">
+            <div class="bar" data-percentage="0%"></div>
+            <span class="year">Oct</span>
+          </div>
+          <div class="bar-six bar-container">
+            <div class="bar" data-percentage="0%"></div>
+            <span class="year">Nov</span>
+          </div>
+          <div class="bar-six bar-container">
+            <div class="bar" data-percentage="0%"></div>
+            <span class="year">Dec</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Modify the container for "View Attendance" -->
+    <div class="container" id="viewattendance" style="display: none;">
+      <!-- Alert -->
+      <div class="error">
+        <div class="error__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none">
+            <path fill="#393a37"
+              d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z">
+            </path>
+          </svg>
+        </div>
+        <div class="error__title"></div>
+        <div class="error__close"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20">
+            <path fill="#393a37"
+              d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z">
+            </path>
+          </svg>
+        </div>
+      </div>
+
+      <h1>View Attendance</h1>
+      <!-- Add Attendance Button -->
+      <button id="toggleButton" class="btnsubmit"> <span>Add Attendance</span></button>
+      <div class="board">
+        <h3 style="color: aliceblue;">From:
+        <select id="month-select" name="month">
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+      </select> To: May</h3> 
+        <table width="100%" style="padding: 1%;">
+          <thead>
+            <tr style="font-weight: bold;">
+              <th style="text-align: left;">Date</th>
+              <th style="text-align: left;">Time</th>
+              <th style="text-align: left;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for record in attendance_data %}
+            <tr>
+              <td>{{ record.date }}</td>
+              <td>{{ record.time }}</td>
+              <td>{{ record.status }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+
+  </div>
+  <!-- Link to user.js -->
+  <script src="{{ url_for('static',filename='js/user.js') }}"></script>
+</body>
+
+</html>
